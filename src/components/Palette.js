@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
+import NavBar from './NavBar';
 import ColorBox from './ColorBox';
-import Slider, { Range } from 'rc-slider';
-import 'rc-slider/assets/index.css'; //this should be included before our own styles in order for edited styles (slider) to work
 import './Palette.css';
 
 export default class Palette extends Component {
@@ -22,15 +21,7 @@ export default class Palette extends Component {
         ));
         return (
             <div className="Palette">
-                <div className="slider">
-                    <Slider
-                        defaultValue={level}
-                        min={100}
-                        max={900}
-                        step={100}
-                        onAfterChange={this.changeLevel}
-                    />
-                </div>
+                <NavBar level={level} changeLevel={this.changeLevel} />
                 {/* Navbar goes here*/}
                 <div className="Palette__colors">{colorBoxes}</div>
                 {/* Footer */}
