@@ -34,7 +34,7 @@
 
 .box-content {
     position: absolute;
-    padding: 10px;
+    /* padding: 10px;  this padding was causing an overflow and generating a horizontal scrollbar */
     width: 100%;
     left: 0px;
     bottom: 0px;
