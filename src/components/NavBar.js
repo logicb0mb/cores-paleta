@@ -5,6 +5,7 @@ import Slide from '@material-ui/core/Slide';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'; //this should be included before our own styles in order for edited styles (slider) to work
@@ -34,7 +35,7 @@ export default class NavBar extends Component {
         return (
             <header className="NavBar">
                 <div className="logo">
-                    <a href="#">cores-paleta</a>
+                    <Link to="/">cores-paleta</Link>
                 </div>
                 <div className="slider__container">
                     <span>Level: {level}</span>
