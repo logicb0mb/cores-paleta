@@ -30,25 +30,27 @@ export default class NavBar extends Component {
         return <Slide {...props} direction="left" />;
     }
     render() {
-        const { level, changeLevel } = this.props;
+        const { level, changeLevel, showingAllColors } = this.props;
         const { format, open } = this.state;
         return (
             <header className="NavBar">
                 <div className="logo">
                     <Link to="/">cores-paleta</Link>
                 </div>
-                <div className="slider__container">
-                    <span>Level: {level}</span>
-                    <div className="slider">
-                        <Slider
-                            defaultValue={level}
-                            min={100}
-                            max={900}
-                            step={100}
-                            onAfterChange={changeLevel}
-                        />
+                {showingAllColors && (
+                    <div className="slider__container">
+                        <span>Level: {level}</span>
+                        <div className="slider">
+                            <Slider
+                                defaultValue={level}
+                                min={100}
+                                max={900}
+                                step={100}
+                                onAfterChange={changeLevel}
+                            />
+                        </div>
                     </div>
-                </div>
+                )}
                 <div className="select__container">
                     <Select value={format} onChange={this.handleFormatChange}>
                         <MenuItem value="hex">HEX - #ffffff</MenuItem>
