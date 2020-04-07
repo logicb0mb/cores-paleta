@@ -10,10 +10,18 @@
     background-color: white;
     height: 7vh;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     font-weight: bold;
 }
+.Palette__footer--copyright {
+    margin: 1rem;
+    text-decoration: none;
+}
+.Palette__footer--copyright a {
+    text-decoration: none;
+}
+
 .emoji {
     margin: 0.7rem;
 }
