@@ -6,7 +6,11 @@ export default function PaletteFooter(props) {
         <footer className="Palette__footer">
             <span className="Palette__footer--copyright">
                 {' '}
-                &copy; <a href="https://github.com/logicb0mb">
+                &copy;
+                <a
+                    className="Palette__footer--link"
+                    href="https://github.com/logicb0mb"
+                >
                     SHREYAS SHUKLA
                 </a>{' '}
             </span>

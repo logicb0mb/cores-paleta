@@ -15,11 +15,22 @@
     font-weight: bold;
 }
 .Palette__footer--copyright {
-    margin: 1rem;
+    margin: 0 1rem;
     text-decoration: none;
 }
-.Palette__footer--copyright a {
+.Palette__footer--link {
     text-decoration: none;
+    margin: 0 0.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: all 0.2s;
+}
+.Palette__footer--link:hover,
+.Palette__footer--link:active {
+    background-color: #ffed58;
+    box-shadow: 0 1rem 2rem rgba(#000, 0.4);
+    transform: rotate(-5deg) scale(1.3) translate(1rem);
 }
 
 .emoji {
