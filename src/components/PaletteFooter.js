@@ -1,14 +1,17 @@
 import React from 'react';
+import { withStyles } from '@material-ui/styles';
 
-export default function PaletteFooter(props) {
-    const { paletteName, emoji } = props;
+import styles from './../styles/PaletteFooterStyles';
+
+function PaletteFooter(props) {
+    const { paletteName, emoji, classes } = props;
     return (
-        <footer className="Palette__footer">
-            <span className="Palette__footer--copyright">
+        <footer className={classes.PaletteFooter}>
+            <span className={classes.PaletteFooterCopyright}>
                 {' '}
                 &copy;
                 <a
-                    className="Palette__footer--link"
+                    className={classes.PaletteFooterLink}
                     href="https://github.com/logicb0mb"
                 >
                     SHREYAS SHUKLA
@@ -16,8 +19,9 @@ export default function PaletteFooter(props) {
             </span>
             <div>
                 {paletteName}
-                <span className="emoji">{emoji}</span>
+                <span className={classes.Emoji}>{emoji}</span>
             </div>
         </footer>
     );
 }
+export default withStyles(styles)(PaletteFooter);

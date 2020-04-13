@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import ColorBox from './ColorBox';
+import { withStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
+
+import ColorBox from './ColorBox';
 import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
+import styles from './../styles/PaletteStyles';
 
-export default class SingleColorPalette extends Component {
+class SingleColorPalette extends Component {
     constructor(props) {
         super(props);
         this._shades = this.gatherShades(
@@ -31,6 +34,7 @@ export default class SingleColorPalette extends Component {
     };
     render() {
         const { format } = this.state;
+        const { classes } = this.props;
         const { paletteName, emoji, id } = this.props.palette;
         const colorBoxes = this._shades.map((color) => (
             <ColorBox
@@ -41,17 +45,15 @@ export default class SingleColorPalette extends Component {
             />
         ));
         return (
-            <div className="SingleColorPalette Palette">
+            <div className={`SingleColorPalette ${classes.Palette}`}>
                 <NavBar
                     changeColorFormat={this.changeColorFormat}
                     showingAllColors={false}
                 />
-                <div className="Palette__colors">
+                <div className={classes.Palette__colors}>
                     {colorBoxes}
-                    <div className="go-back ColorBox">
-                        <Link to={`/palette/${id}`} className="back-button">
-                            Go Back!
-                        </Link>
+                    <div className={classes.goBack}>
+                        <Link to={`/palette/${id}`}>Go Back!</Link>
                     </div>
                 </div>
                 <PaletteFooter paletteName={paletteName} emoji={emoji} />
@@ -59,3 +61,4 @@ export default class SingleColorPalette extends Component {
         );
     }
 }
+export default withStyles(styles)(SingleColorPalette);

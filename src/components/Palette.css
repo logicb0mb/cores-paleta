@@ -1,20 +1,20 @@
-.Palette {
+/* .Palette {
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-.Palette__colors {
+} */
+/* .Palette__colors {
     height: 85%;
-}
-.Palette__footer {
+} */
+/* .Palette__footer {
     background-color: white;
     height: 7vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
-}
-.Palette__footer--copyright {
+} */
+/* .Palette__footer--copyright {
     margin: 0 1rem;
     text-decoration: none;
 }
@@ -35,4 +35,4 @@
 
 .emoji {
     margin: 0.7rem;
-}
+} */
