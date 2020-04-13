@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/styles';
 import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
@@ -9,9 +10,9 @@ import { Link } from 'react-router-dom';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'; //this should be included before our own styles in order for edited styles (slider) to work
-import './NavBar.css';
+import styles from './../styles/NavBarStyles';
 
-export default class NavBar extends Component {
+class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,17 +31,17 @@ export default class NavBar extends Component {
         return <Slide {...props} direction="left" />;
     }
     render() {
-        const { level, changeLevel, showingAllColors } = this.props;
+        const { level, changeLevel, showingAllColors, classes } = this.props;
         const { format, open } = this.state;
         return (
-            <header className="NavBar">
-                <div className="logo">
+            <header className={classes.NavBar}>
+                <div className={classes.logo}>
                     <Link to="/">cores-paleta</Link>
                 </div>
                 {showingAllColors && (
-                    <div className="slider__container">
+                    <div>
                         <span>Level: {level}</span>
-                        <div className="slider">
+                        <div className={classes.slider}>
                             <Slider
                                 defaultValue={level}
                                 min={100}
@@ -51,7 +52,7 @@ export default class NavBar extends Component {
                         </div>
                     </div>
                 )}
-                <div className="select__container">
+                <div className={classes.selectContainer}>
                     <Select value={format} onChange={this.handleFormatChange}>
                         <MenuItem value="hex">HEX - #ffffff</MenuItem>
                         <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
@@ -92,3 +93,4 @@ export default class NavBar extends Component {
         );
     }
 }
+export default withStyles(styles)(NavBar);

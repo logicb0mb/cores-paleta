@@ -5,8 +5,6 @@ import ColorBox from './ColorBox';
 import PaletteFooter from './PaletteFooter';
 import styles from './../styles/PaletteStyles';
 
-import './Palette.css';
-
 class Palette extends Component {
     constructor(props) {
         super(props);
