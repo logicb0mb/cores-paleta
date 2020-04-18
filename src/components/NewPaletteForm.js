@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,6 +15,7 @@ import ClearAllOutlinedIcon from '@material-ui/icons/ClearAllOutlined';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { ChromePicker } from 'react-color';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import DraggableColorBox from './DraggableColorBox';
 
@@ -81,9 +82,25 @@ const useStyles = makeStyles((theme) => ({
 export default function NewPaletteForm() {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const [currentColor, setCurrentColor] = React.useState('aquablue');
-    const [colors, setColors] = React.useState(['purple', '#ff8900']);
+    const [colors, setColors] = React.useState([
+        { color: 'blue', name: 'blue' },
+    ]);
+    const [newName, setNewName] = React.useState('');
+
+    useEffect(() => {
+        // similar to componentDidMount
+        ValidatorForm.addValidationRule('isColorNameUnique', (value) =>
+            colors.every(
+                ({ name }) => name.toLowerCase() !== value.toLowerCase()
+            )
+        );
+
+        ValidatorForm.addValidationRule('isColorUnique', (value) =>
+            colors.every(({ color }) => color !== currentColor)
+        );
+    });
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -98,7 +115,12 @@ export default function NewPaletteForm() {
     };
 
     const addNewColor = () => {
-        setColors([...colors, currentColor]);
+        const newColor = { color: currentColor, name: newName };
+        setColors([...colors, newColor]);
+        setNewName('');
+    };
+    const handleChange = (evt) => {
+        setNewName(evt.target.value);
     };
 
     return (
@@ -157,15 +179,31 @@ export default function NewPaletteForm() {
                     color={currentColor}
                     onChangeComplete={updateCurrentColor}
                 />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ backgroundColor: currentColor }}
-                    onClick={addNewColor}
-                >
-                    Add Color
-                    <AddCircleOutlineIcon />
-                </Button>
+                <ValidatorForm onSubmit={addNewColor}>
+                    <TextValidator
+                        value={newName}
+                        onChange={handleChange}
+                        validators={[
+                            'required',
+                            'isColorNameUnique',
+                            'isColorUnique',
+                        ]}
+                        errorMessages={[
+                            'Enter a color name',
+                            'Color names must be unique',
+                            'Color already used',
+                        ]}
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ backgroundColor: currentColor }}
+                        type="submit"
+                    >
+                        Add Color
+                        <AddCircleOutlineIcon />
+                    </Button>
+                </ValidatorForm>
             </Drawer>
             <main
                 className={classNames(classes.content, {
@@ -175,7 +213,10 @@ export default function NewPaletteForm() {
                 <div className={classes.drawerHeader} />
 
                 {colors.map((color) => (
-                    <DraggableColorBox color={color}></DraggableColorBox>
+                    <DraggableColorBox
+                        color={color.color}
+                        name={color.name}
+                    ></DraggableColorBox>
                 ))}
             </main>
         </div>
