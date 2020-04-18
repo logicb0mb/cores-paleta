@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Button from '@material-ui/core/Button';
 import ClearAllOutlinedIcon from '@material-ui/icons/ClearAllOutlined';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -18,7 +18,7 @@ import { ChromePicker } from 'react-color';
 
 const drawerWidth = 400;
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
@@ -37,8 +37,7 @@ const styles = (theme) => ({
         }),
     },
     menuButton: {
-        marginLeft: 12,
-        marginRight: 20,
+        marginRight: theme.spacing(2),
     },
     hide: {
         display: 'none',
@@ -53,13 +52,14 @@ const styles = (theme) => ({
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
-        padding: '0 8px',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -73,99 +73,109 @@ const styles = (theme) => ({
         }),
         marginLeft: 0,
     },
-});
+}));
 
-class NewPaletteForm extends React.Component {
-    state = {
-        open: false,
+export default function NewPaletteForm() {
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+    const [currentColor, setCurrentColor] = React.useState('aquablue');
+    const [colors, setColors] = React.useState(['purple', '#ff8900']);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
     };
 
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
+    const handleDrawerClose = () => {
+        setOpen(false);
     };
 
-    handleDrawerClose = () => {
-        this.setState({ open: false });
+    const updateCurrentColor = (newColor) => {
+        setCurrentColor(newColor.hex);
     };
 
-    render() {
-        const { classes } = this.props;
-        const { open } = this.state;
+    const addNewColor = () => {
+        setColors([...colors, currentColor]);
+    };
 
-        return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <AppBar
-                    position="fixed"
-                    className={classNames(classes.appBar, {
-                        [classes.appBarShift]: open,
-                    })}
-                >
-                    <Toolbar disableGutters={!open}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(
-                                classes.menuButton,
-                                open && classes.hide
-                            )}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" color="inherit" noWrap>
-                            Persistent drawer
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    className={classes.drawer}
-                    variant="persistent"
-                    anchor="left"
-                    open={open}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <div className={classes.drawerHeader}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </div>
-                    <Divider />
-                    <Typography variant="h4">
-                        {' '}
-                        Design your own palette{' '}
+    return (
+        <div className={classes.root}>
+            <CssBaseline />
+            <AppBar
+                position="fixed"
+                className={classNames(classes.appBar, {
+                    [classes.appBarShift]: open,
+                })}
+            >
+                <Toolbar disableGutters={!open}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="Open drawer"
+                        onClick={handleDrawerOpen}
+                        className={classNames(
+                            classes.menuButton,
+                            open && classes.hide
+                        )}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" color="inherit" noWrap>
+                        Persistent drawer
                     </Typography>
-                    <div>
-                        <Button variant="contained" color="secondary">
-                            Clear Palette
-                            <ClearAllOutlinedIcon />
-                        </Button>
-                        <Button variant="contained" color="primary">
-                            Random Color
-                            <ShuffleIcon />
-                        </Button>
-                    </div>
-                    <ChromePicker
-                        color="purple"
-                        onChangeComplete={(newColor) => console.log(newColor)}
-                    />{' '}
-                    <Button variant="contained" color="primary">
-                        Add Color
-                        <AddCircleOutlineIcon />
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="left"
+                open={open}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </div>
+                <Divider />
+                <Typography variant="h4"> Design your own palette </Typography>
+                <div>
+                    <Button variant="contained" color="secondary">
+                        Clear Palette
+                        <ClearAllOutlinedIcon />
                     </Button>
-                </Drawer>
-                <main
-                    className={classNames(classes.content, {
-                        [classes.contentShift]: open,
-                    })}
+                    <Button variant="contained" color="primary">
+                        Random Color
+                        <ShuffleIcon />
+                    </Button>
+                </div>
+                <ChromePicker
+                    color={currentColor}
+                    onChangeComplete={updateCurrentColor}
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ backgroundColor: currentColor }}
+                    onClick={addNewColor}
                 >
-                    <div className={classes.drawerHeader} />
-                </main>
-            </div>
-        );
-    }
+                    Add Color
+                    <AddCircleOutlineIcon />
+                </Button>
+            </Drawer>
+            <main
+                className={classNames(classes.content, {
+                    [classes.contentShift]: open,
+                })}
+            >
+                <div className={classes.drawerHeader} />
+                <ul>
+                    {colors.map((color) => (
+                        <li style={{ backgroundColor: color }}>{color}</li>
+                    ))}
+                </ul>
+            </main>
+        </div>
+    );
 }
-
-export default withStyles(styles, { withTheme: true })(NewPaletteForm);
