@@ -20,23 +20,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
+
     hide: {
         display: 'none',
     },
@@ -46,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        display: 'flex',
+        alignItems: 'center',
     },
     drawerHeader: {
         display: 'flex',
@@ -71,6 +57,21 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: 0,
+    },
+    container: {
+        width: '90%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        margin: '1rem 2rem',
+    },
+    buttons: {
+        width: '100%',
+    },
+    button: {
+        width: '50%',
     },
 }));
 
@@ -140,7 +141,6 @@ export default function NewPaletteForm(props) {
         <div className={classes.root}>
             <PaletteFormNav
                 open={open}
-                classes={classes}
                 palettes={props.palettes}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
@@ -162,34 +162,42 @@ export default function NewPaletteForm(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <Typography variant="h4"> Design your own palette </Typography>
-                <div>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={clearColors}
-                    >
-                        Clear Palette
-                        <ClearAllOutlinedIcon />
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={addRandomColor}
-                        disabled={paletteIsFull}
-                    >
-                        Random Color
-                        <ShuffleIcon />
-                    </Button>
+
+                <div className={classes.container}>
+                    <Typography variant="h5">
+                        {' '}
+                        Design your own palette{' '}
+                    </Typography>
+                    <div className={classes.buttons}>
+                        <Button
+                            className={classes.button}
+                            variant="contained"
+                            color="secondary"
+                            onClick={clearColors}
+                            endIcon={<ClearAllOutlinedIcon />}
+                        >
+                            Clear Palette
+                        </Button>
+                        <Button
+                            className={classes.button}
+                            variant="contained"
+                            color="primary"
+                            onClick={addRandomColor}
+                            disabled={paletteIsFull}
+                            endIcon={<ShuffleIcon />}
+                        >
+                            Random Color
+                        </Button>
+                    </div>
+                    <ColorPickerForm
+                        paletteIsFull={paletteIsFull}
+                        handleChange={handleChange}
+                        newName={newName}
+                        setNewName={setNewName}
+                        colors={colors}
+                        setColors={setColors}
+                    />
                 </div>
-                <ColorPickerForm
-                    paletteIsFull={paletteIsFull}
-                    handleChange={handleChange}
-                    newName={newName}
-                    setNewName={setNewName}
-                    colors={colors}
-                    setColors={setColors}
-                />
             </Drawer>
             <main
                 className={classNames(classes.content, {

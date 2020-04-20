@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+import ColorPickerFormStyles from './../styles/ColorPickerFormStyles';
+
+const useStyles = ColorPickerFormStyles;
+
 function ColorPickerForm(props) {
+    const classes = useStyles();
+    const theme = useTheme();
     const {
         paletteIsFull,
         handleChange,
@@ -40,12 +48,11 @@ function ColorPickerForm(props) {
 
     return (
         <div>
-            <ChromePicker
-                color={currentColor}
-                onChangeComplete={updateCurrentColor}
-            />
             <ValidatorForm onSubmit={addNewColor}>
                 <TextValidator
+                    className={classes.colorNameInput}
+                    variant="filled"
+                    placeholder="Color Name"
                     value={newName.colorName}
                     name="colorName"
                     onChange={handleChange}
@@ -61,6 +68,7 @@ function ColorPickerForm(props) {
                     ]}
                 />
                 <Button
+                    className={classes.addColor}
                     variant="contained"
                     color="primary"
                     style={{
@@ -70,9 +78,13 @@ function ColorPickerForm(props) {
                     disabled={paletteIsFull}
                 >
                     {paletteIsFull ? 'Palette Full' : 'Add Color'}
-                    {paletteIsFull ? '' : <AddCircleOutlineIcon />}
                 </Button>
             </ValidatorForm>
+            <ChromePicker
+                className={classes.picker}
+                color={currentColor}
+                onChangeComplete={updateCurrentColor}
+            />
         </div>
     );
 }
