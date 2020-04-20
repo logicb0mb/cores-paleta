@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -16,8 +16,8 @@ import ShuffleIcon from '@material-ui/icons/Shuffle';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
-import DraggableColorBox from './DraggableColorBox';
+import { arrayMove } from 'react-sortable-hoc';
+import DraggableColorList from './DraggableColorList';
 
 const drawerWidth = 400;
 
@@ -149,6 +149,10 @@ export default function NewPaletteForm(props) {
         setColors(colors.filter((color) => color.name !== colorName));
     };
 
+    let onSortEnd = ({ oldIndex, newIndex }) => {
+        setColors(arrayMove(colors, oldIndex, newIndex));
+    };
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -260,14 +264,12 @@ export default function NewPaletteForm(props) {
             >
                 <div className={classes.drawerHeader} />
 
-                {colors.map((color) => (
-                    <DraggableColorBox
-                        key={color.name}
-                        color={color.color}
-                        name={color.name}
-                        handleClick={() => removeColor(color.name)}
-                    />
-                ))}
+                <DraggableColorList
+                    colors={colors}
+                    removeColor={removeColor}
+                    axis="xy"
+                    onSortEnd={onSortEnd}
+                />
             </main>
         </div>
     );
