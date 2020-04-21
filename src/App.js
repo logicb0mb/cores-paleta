@@ -27,8 +27,11 @@ const theme = createMuiTheme({
 class App extends React.Component {
     constructor(props) {
         super(props);
+        const savedPalettes = JSON.parse(
+            window.localStorage.getItem('palettes')
+        );
         this.state = {
-            palettes: seedColors,
+            palettes: savedPalettes || seedColors,
         };
     }
 
@@ -37,9 +40,19 @@ class App extends React.Component {
     };
 
     savePalette = (newPalette) => {
-        this.setState({ palettes: [...this.state.palettes, newPalette] });
+        this.setState(
+            { palettes: [...this.state.palettes, newPalette] },
+            this.syncLocalStorage
+        );
     };
 
+    syncLocalStorage = () => {
+        // save palettes to localStorage
+        window.localStorage.setItem(
+            'palettes',
+            JSON.stringify(this.state.palettes)
+        );
+    };
     render() {
         return (
             <ThemeProvider theme={theme}>
