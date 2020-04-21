@@ -1,3 +1,4 @@
+import media from './media';
 export default {
     NavBar: {
         display: 'flex',
@@ -16,6 +17,9 @@ export default {
         '& a': {
             textDecoration: 'none',
             color: 'black',
+        },
+        [media.down('xs')]: {
+            display: 'none',
         },
     },
     selectContainer: {
@@ -45,11 +49,8 @@ export default {
             marginLeft: '-7px',
             marginTop: '-5px',
         },
-        '& .rc-slider-rail': {
-            height: '8px',
-            background: '#9cecfb',
-            background: '-webkit-linear-gradient(to left,#000839,#00a8cc)',
-            background: 'linear-gradient(to left,#000839,#00a8cc)',
+        [media.down('md')]: {
+            width: '150px',
         },
     },
 };

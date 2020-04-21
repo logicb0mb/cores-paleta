@@ -16,11 +16,11 @@ export default {
         },
         [media.down('lg')]: {
             width: '25%',
-            height: (props) => (props.showingFullPalette ? '20%' : '10.72%'),
+            height: (props) => (props.showingFullPalette ? '20%' : '33.33%'),
         },
         [media.down('md')]: {
             width: '50%',
-            height: (props) => (props.showingFullPalette ? '10%' : '10.72%'),
+            height: (props) => (props.showingFullPalette ? '10%' : '20%'),
         },
         [media.down('xs')]: {
             width: '100%',
@@ -132,6 +132,9 @@ export default {
             marginBottom: '0',
             padding: '1rem',
             textTransform: 'uppercase',
+            [media.down('xs')]: {
+                fontSize: '6rem',
+            },
         },
         '& p': {
             fontSize: '2rem',

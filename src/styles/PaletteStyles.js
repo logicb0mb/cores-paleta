@@ -1,3 +1,4 @@
+import media from './media';
 export default {
     Palette: {
         height: '100vh',
@@ -40,6 +41,18 @@ export default {
             textDecoration: 'none',
             borderRadius: '5px',
             border: '2px solid #000',
+        },
+        [media.down('lg')]: {
+            width: '25%',
+            height: '33.33%',
+        },
+        [media.down('md')]: {
+            width: '50%',
+            height: '20%',
+        },
+        [media.down('xs')]: {
+            width: '100%',
+            height: '7%',
         },
     },
 };

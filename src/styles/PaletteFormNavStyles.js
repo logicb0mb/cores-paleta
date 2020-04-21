@@ -1,6 +1,6 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { DRAWER_WIDTH as drawerWidth } from './../constants';
-
+import media from './media';
 export default makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -36,8 +36,15 @@ export default makeStyles((theme) => ({
         '& a': {
             textDecoration: 'none',
         },
+        [media.down('md')]: {
+            marginRight: '.5rem',
+        },
     },
     button: {
         margin: '0 0.5rem',
+        [media.down('md')]: {
+            margin: '0 0.2rem',
+            padding: '0.3rem',
+        },
     },
 }));

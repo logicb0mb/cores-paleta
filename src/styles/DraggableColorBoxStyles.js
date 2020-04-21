@@ -1,3 +1,4 @@
+import media from './media';
 export default {
     root: {
         width: '20%',
@@ -14,6 +15,27 @@ export default {
         },
         '&:nth-last-child(-n+4)': {
             height: '25.2%', // wrote this for last 4 colorboxes so that full viewport is covered and no vertical scroll occurs
+        },
+        [media.down('lg')]: {
+            width: '25%',
+            height: '20%',
+            '&:nth-last-child(-n+4)': {
+                height: '20.2%', // wrote this for last 4 colorboxes so that full viewport is covered and no vertical scroll occurs
+            },
+        },
+        [media.down('md')]: {
+            width: '50%',
+            height: '10%',
+            '&:nth-last-child(-n+4)': {
+                height: '10.2%', // wrote this for last 4 colorboxes so that full viewport is covered and no vertical scroll occurs
+            },
+        },
+        [media.down('sm')]: {
+            width: '100%',
+            height: '5%',
+            '&:nth-last-child(-n+4)': {
+                height: '5.2%', // wrote this for last 4 colorboxes so that full viewport is covered and no vertical scroll occurs
+            },
         },
     },
     boxContent: {
