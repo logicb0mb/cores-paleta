@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-
+import media from './media';
 export default {
     colorBox: {
         width: '20%',
@@ -13,6 +13,18 @@ export default {
 
         '&:hover button': {
             opacity: 1,
+        },
+        [media.down('lg')]: {
+            width: '25%',
+            height: (props) => (props.showingFullPalette ? '20%' : '10.72%'),
+        },
+        [media.down('md')]: {
+            width: '50%',
+            height: (props) => (props.showingFullPalette ? '10%' : '10.72%'),
+        },
+        [media.down('xs')]: {
+            width: '100%',
+            height: (props) => (props.showingFullPalette ? '5%' : '10.72%'),
         },
     },
     copyText: {
