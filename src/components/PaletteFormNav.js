@@ -29,6 +29,9 @@ function PaletteFormNav(props) {
     const showForm = () => {
         setFormShowing(true);
     };
+    const hideForm = () => {
+        setFormShowing(false);
+    };
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -82,6 +85,7 @@ function PaletteFormNav(props) {
                     newName={newName}
                     handleChange={handleChange}
                     palettes={palettes}
+                    hideForm={hideForm}
                 />
             )}
         </div>

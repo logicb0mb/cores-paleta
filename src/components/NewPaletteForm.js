@@ -103,13 +103,10 @@ export default function NewPaletteForm(props) {
     };
 
     //deliberatley not moving this method to PaletteFormNav because then i have to pass down savePalette and routeProps two components down along with other state materials, that is not worth it better leave it here
-    const handleSubmit = () => {
+    const handleSubmit = (newPalette) => {
         let newPaletteName = newName.paletteName;
-        const newPalette = {
-            paletteName: newPaletteName,
-            id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-            colors,
-        };
+        newPalette.id = newPaletteName.toLowerCase().replace(/ /g, '-');
+        newPalette.colors = colors;
         props.savePalette(newPalette);
         props.history.push('/');
     };

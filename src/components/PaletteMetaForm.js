@@ -6,11 +6,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 export default function PaletteMetaForm(props) {
-    const [openDialog, setOpenDialog] = React.useState(true);
+    const [stage, setStage] = React.useState('form');
 
-    const { handleSubmit, handleChange, newName, palettes } = props;
+    const { handleSubmit, handleChange, newName, palettes, hideForm } = props;
     useEffect(() => {
         ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
             props.palettes.every(
@@ -20,25 +22,34 @@ export default function PaletteMetaForm(props) {
         );
     });
 
-    const handleClickOpen = () => {
-        setOpenDialog(true);
+    const showEmojiPicker = () => {
+        setStage('emoji');
     };
 
-    const handleClose = () => {
-        setOpenDialog(false);
+    const submitPalette = (emoji) => {
+        const newPalette = {
+            paletteName: newName.paletteName,
+            emoji: emoji.native,
+        };
+        handleSubmit(newPalette);
     };
-
     return (
         <div>
+            <Dialog open={stage === 'emoji'}>
+                <DialogTitle id="form-dialog-title">
+                    Choose an emoji for your palette
+                </DialogTitle>
+                <Picker onSelect={submitPalette} title="Pick a palette emoji" />
+            </Dialog>
             <Dialog
-                open={openDialog}
-                onClose={handleClose}
+                open={stage === 'form'}
                 aria-labelledby="form-dialog-title"
+                onClose={hideForm}
             >
                 <DialogTitle id="form-dialog-title">
                     Choose a Palette Name
                 </DialogTitle>
-                <ValidatorForm onSubmit={handleSubmit}>
+                <ValidatorForm onSubmit={showEmojiPicker}>
                     <DialogContent>
                         <DialogContentText>
                             Please enter a name for the beautiful palette you
@@ -59,7 +70,7 @@ export default function PaletteMetaForm(props) {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={hideForm} color="primary">
                             Cancel
                         </Button>
                         <Button
