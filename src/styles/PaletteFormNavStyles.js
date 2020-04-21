@@ -1,9 +1,12 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-const drawerWidth = 400;
+import { DRAWER_WIDTH as drawerWidth } from './../constants';
 
 export default makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    hide: {
+        display: 'none',
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -13,7 +16,7 @@ export default makeStyles((theme) => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: '64px',
+        height: '63.7px',
     },
 
     appBarShift: {

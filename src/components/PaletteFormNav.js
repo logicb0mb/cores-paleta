@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import PaletteMetaForm from './PaletteMetaForm';
-
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import PaletteFormNavStyles from './../styles/PaletteFormNavStyles';
 
 const useStyles = PaletteFormNavStyles;
@@ -52,7 +52,7 @@ function PaletteFormNav(props) {
                             open && classes.hide
                         )}
                     >
-                        <MenuIcon />
+                        <PostAddIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap>
                         Create a Palette
