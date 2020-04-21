@@ -8,6 +8,22 @@ import NewPaletteForm from './components/NewPaletteForm';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
 
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import './App.css';
+
+const theme = createMuiTheme({
+    typography: {
+        fontFamily: [
+            'Barlow',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+        ].join(','),
+    },
+});
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -26,58 +42,57 @@ class App extends React.Component {
 
     render() {
         return (
-            <Switch>
-                {/* Order does matter in these routes becasue if i will place the new route below the Palette route then it will try for new as a palette id when teh client will visit the url (/new) */}
-                <Route
-                    exact
-                    path="/palette/new"
-                    render={(routeProps) => (
-                        <NewPaletteForm
-                            savePalette={this.savePalette}
-                            palettes={this.state.palettes}
-                            {...routeProps}
-                        />
-                    )}
-                />
-                <Route
-                    exact
-                    path="/"
-                    render={(routeProps) => (
-                        <PaletteList
-                            palettes={this.state.palettes}
-                            {...routeProps}
-                        />
-                    )}
-                />
-                <Route
-                    exact
-                    path="/palette/:id"
-                    render={(routeProps) => (
-                        <Palette
-                            palette={generatePalette(
-                                this.findPalette(routeProps.match.params.id)
-                            )}
-                        />
-                    )}
-                />
-                <Route
-                    exact
-                    path="/palette/:paletteId/:colorId"
-                    render={(routeProps) => (
-                        <SingleColorPalette
-                            palette={generatePalette(
-                                this.findPalette(
-                                    routeProps.match.params.paletteId
-                                )
-                            )}
-                            colorId={routeProps.match.params.colorId}
-                        />
-                    )}
-                />
-            </Switch>
-            // <div>
-            //     <Palette palette={generatePalette(seedColors[4])} />
-            // </div>
+            <ThemeProvider theme={theme}>
+                <Switch>
+                    {/* Order does matter in these routes becasue if i will place the new route below the Palette route then it will try for new as a palette id when teh client will visit the url (/new) */}
+                    <Route
+                        exact
+                        path="/palette/new"
+                        render={(routeProps) => (
+                            <NewPaletteForm
+                                savePalette={this.savePalette}
+                                palettes={this.state.palettes}
+                                {...routeProps}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/"
+                        render={(routeProps) => (
+                            <PaletteList
+                                palettes={this.state.palettes}
+                                {...routeProps}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/palette/:id"
+                        render={(routeProps) => (
+                            <Palette
+                                palette={generatePalette(
+                                    this.findPalette(routeProps.match.params.id)
+                                )}
+                            />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/palette/:paletteId/:colorId"
+                        render={(routeProps) => (
+                            <SingleColorPalette
+                                palette={generatePalette(
+                                    this.findPalette(
+                                        routeProps.match.params.paletteId
+                                    )
+                                )}
+                                colorId={routeProps.match.params.colorId}
+                            />
+                        )}
+                    />
+                </Switch>
+            </ThemeProvider>
         );
     }
 }
