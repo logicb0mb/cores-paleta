@@ -32,6 +32,7 @@ export default function PaletteMetaForm(props) {
             emoji: emoji.native,
         };
         handleSubmit(newPalette);
+        setStage('');
     };
     return (
         <div>
@@ -56,6 +57,7 @@ export default function PaletteMetaForm(props) {
                             just created. Make sure it's unique!
                         </DialogContentText>
                         <TextValidator
+                            autoFocus
                             fullWidth
                             label="Palette Name"
                             margin="normal"

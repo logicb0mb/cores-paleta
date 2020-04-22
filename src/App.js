@@ -5,8 +5,10 @@ import Palette from './components/Palette';
 import PaletteList from './components/PaletteList';
 import SingleColorPalette from './components/SingleColorPalette';
 import NewPaletteForm from './components/NewPaletteForm';
+import Page from './components/Page';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -62,61 +64,80 @@ class App extends React.Component {
             JSON.stringify(this.state.palettes)
         );
     };
+    renderThis = ({ location }) => (
+        <TransitionGroup>
+            <CSSTransition key={location.key} classNames="page" timeout={700}>
+                <ThemeProvider theme={theme}>
+                    <Switch location={location}>
+                        {/* Order does matter in these routes becasue if i will place the new route below the Palette route then it will try for new as a palette id when teh client will visit the url (/new) */}
+                        <Route
+                            exact
+                            path="/palette/new"
+                            render={(routeProps) => (
+                                <Page>
+                                    <NewPaletteForm
+                                        savePalette={this.savePalette}
+                                        palettes={this.state.palettes}
+                                        {...routeProps}
+                                    />
+                                </Page>
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/"
+                            render={(routeProps) => (
+                                <Page>
+                                    <PaletteList
+                                        palettes={this.state.palettes}
+                                        {...routeProps}
+                                        deletePalette={this.deletePalette}
+                                    />
+                                </Page>
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/palette/:id"
+                            render={(routeProps) => (
+                                <Page>
+                                    <Palette
+                                        palette={generatePalette(
+                                            this.findPalette(
+                                                routeProps.match.params.id
+                                            )
+                                        )}
+                                    />
+                                </Page>
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/palette/:paletteId/:colorId"
+                            render={(routeProps) => (
+                                <Page>
+                                    <SingleColorPalette
+                                        palette={generatePalette(
+                                            this.findPalette(
+                                                routeProps.match.params
+                                                    .paletteId
+                                            )
+                                        )}
+                                        colorId={
+                                            routeProps.match.params.colorId
+                                        }
+                                    />
+                                </Page>
+                            )}
+                        />
+                    </Switch>
+                </ThemeProvider>
+            </CSSTransition>
+        </TransitionGroup>
+    );
+
     render() {
-        return (
-            <ThemeProvider theme={theme}>
-                <Switch>
-                    {/* Order does matter in these routes becasue if i will place the new route below the Palette route then it will try for new as a palette id when teh client will visit the url (/new) */}
-                    <Route
-                        exact
-                        path="/palette/new"
-                        render={(routeProps) => (
-                            <NewPaletteForm
-                                savePalette={this.savePalette}
-                                palettes={this.state.palettes}
-                                {...routeProps}
-                            />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/"
-                        render={(routeProps) => (
-                            <PaletteList
-                                palettes={this.state.palettes}
-                                {...routeProps}
-                                deletePalette={this.deletePalette}
-                            />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/palette/:id"
-                        render={(routeProps) => (
-                            <Palette
-                                palette={generatePalette(
-                                    this.findPalette(routeProps.match.params.id)
-                                )}
-                            />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/palette/:paletteId/:colorId"
-                        render={(routeProps) => (
-                            <SingleColorPalette
-                                palette={generatePalette(
-                                    this.findPalette(
-                                        routeProps.match.params.paletteId
-                                    )
-                                )}
-                                colorId={routeProps.match.params.colorId}
-                            />
-                        )}
-                    />
-                </Switch>
-            </ThemeProvider>
-        );
+        return <Route render={this.renderThis} />;
     }
 }
 
