@@ -49,7 +49,7 @@ export default {
             marginLeft: '-7px',
             marginTop: '-5px',
         },
-        [media.down('md')]: {
+        [media.down('sm')]: {
             width: '150px',
         },
     },
