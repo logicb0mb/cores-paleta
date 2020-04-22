@@ -4,13 +4,13 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import styles from './../styles/MiniPaletteStyles';
 
-function MiniPalette(props) {
+const MiniPalette = React.memo((props) => {
     const {
         classes,
         paletteName,
         emoji,
         colors,
-        handleClick,
+        goToPalette,
         openDialog,
         id,
     } = props;
@@ -27,6 +27,12 @@ function MiniPalette(props) {
         openDialog(id);
     };
 
+    const handleClick = () => {
+        goToPalette(id);
+    };
+
+    console.log('Rendering:' + paletteName);
+
     return (
         <div className={classes.root} onClick={handleClick}>
             <DeleteForeverIcon
@@ -40,6 +46,6 @@ function MiniPalette(props) {
             </div>
         </div>
     );
-}
+});
 
 export default withStyles(styles)(MiniPalette);
