@@ -62,12 +62,21 @@ export default function NewPaletteForm(props) {
     };
 
     const addRandomColor = () => {
-        // pick random color from existing palettes
+        // pick unique random color from existing palettes
         const colorsToPick =
             props.palettes.length !== 0 ? props.palettes : seedColors;
         const allColors = colorsToPick.map((p) => p.colors).flat();
-        let rand = Math.floor(Math.random() * allColors.length);
-        const randomColor = allColors[rand];
+        let rand;
+        let randomColor;
+        let isDuplicateColor = true;
+        while (isDuplicateColor) {
+            rand = Math.floor(Math.random() * allColors.length);
+            randomColor = allColors[rand];
+            isDuplicateColor = colors.some(
+                // eslint-disable-next-line no-loop-func
+                (color) => color.name === randomColor.name
+            );
+        }
         setColors([...colors, randomColor]);
     };
 
