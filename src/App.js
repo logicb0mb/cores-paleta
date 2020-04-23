@@ -75,6 +75,7 @@ class App extends React.Component {
                             path="/palette/new"
                             render={(routeProps) => (
                                 <Page>
+                                    {console.log(this.state.palettes)}
                                     <NewPaletteForm
                                         savePalette={this.savePalette}
                                         palettes={this.state.palettes}

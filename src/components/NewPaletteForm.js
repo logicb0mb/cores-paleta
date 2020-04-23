@@ -14,6 +14,7 @@ import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 
+import seedColors from './../seedColors';
 import NewPaletteFormStyles from './../styles/NewPaletteFormStyles';
 
 const useStyles = NewPaletteFormStyles;
@@ -25,7 +26,7 @@ NewPaletteForm.defaultProps = {
 export default function NewPaletteForm(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
-    const [colors, setColors] = React.useState(props.palettes[0].colors);
+    const [colors, setColors] = React.useState(seedColors[0].colors);
     const [newName, setNewName] = React.useState({
         colorName: '',
         paletteName: '',
@@ -62,7 +63,9 @@ export default function NewPaletteForm(props) {
 
     const addRandomColor = () => {
         // pick random color from existing palettes
-        const allColors = props.palettes.map((p) => p.colors).flat();
+        const colorsToPick =
+            props.palettes.length !== 0 ? props.palettes : seedColors;
+        const allColors = colorsToPick.map((p) => p.colors).flat();
         let rand = Math.floor(Math.random() * allColors.length);
         const randomColor = allColors[rand];
         setColors([...colors, randomColor]);

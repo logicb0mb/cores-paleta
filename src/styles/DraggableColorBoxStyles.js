@@ -1,3 +1,5 @@
+import chroma from 'chroma-js';
+
 import media from './media';
 export default {
     root: {
@@ -34,7 +36,8 @@ export default {
         width: '100%',
         left: '0px',
         bottom: '10px',
-        color: 'black',
+        color: (props) =>
+            chroma(props.color).luminance() <= 0.06 ? 'white' : 'black',
         letterSpacing: '1.1px',
         textTransform: 'uppercase',
         fontWeight: '500',
