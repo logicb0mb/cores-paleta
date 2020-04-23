@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
 
 import ColorBox from './ColorBox';
 import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
+
 import styles from './../styles/PaletteStyles';
 
 class SingleColorPalette extends Component {
@@ -27,7 +28,7 @@ class SingleColorPalette extends Component {
             );
         }
         // return all shades of given color
-        return shades.slice(1); //used slice to remove the first elemt of array with level 50, we dont want it
+        return shades.slice(1); //used slice to remove the first element of array with level 50, we dont want it
     };
     changeColorFormat = (val) => {
         this.setState({ format: val });

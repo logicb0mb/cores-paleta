@@ -33,7 +33,9 @@ export default {
         '& .rc-slider-rail': {
             height: '8px',
             background: '#9cecfb',
+            // eslint-disable-next-line no-dupe-keys
             background: '-webkit-linear-gradient(to left,#000839,#00a8cc)',
+            // eslint-disable-next-line no-dupe-keys
             background: 'linear-gradient(to left,#000839,#00a8cc)',
         },
         '& .rc-slider-track': {

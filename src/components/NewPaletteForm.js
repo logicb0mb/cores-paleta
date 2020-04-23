@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { arrayMove } from 'react-sortable-hoc';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -9,10 +9,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import ClearAllOutlinedIcon from '@material-ui/icons/ClearAllOutlined';
 import ShuffleIcon from '@material-ui/icons/Shuffle';
-import { arrayMove } from 'react-sortable-hoc';
+
 import DraggableColorList from './DraggableColorList';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
+
 import NewPaletteFormStyles from './../styles/NewPaletteFormStyles';
 
 const useStyles = NewPaletteFormStyles;
@@ -23,7 +24,6 @@ NewPaletteForm.defaultProps = {
 
 export default function NewPaletteForm(props) {
     const classes = useStyles();
-    const theme = useTheme();
     const [open, setOpen] = React.useState(true);
     const [colors, setColors] = React.useState(props.palettes[0].colors);
     const [newName, setNewName] = React.useState({
@@ -40,7 +40,6 @@ export default function NewPaletteForm(props) {
     };
 
     const handleChange = (evt) => {
-        console.log(`inside`);
         setNewName({ ...newName, [evt.target.name]: evt.target.value });
     };
 
@@ -51,11 +50,6 @@ export default function NewPaletteForm(props) {
         newPalette.colors = colors;
         props.savePalette(newPalette);
         props.history.push('/');
-    };
-
-    // TODO: can be moved to DraggableColorList later
-    const removeColor = (colorName) => {
-        setColors(colors.filter((color) => color.name !== colorName));
     };
 
     let onSortEnd = ({ oldIndex, newIndex }) => {
@@ -147,7 +141,7 @@ export default function NewPaletteForm(props) {
 
                 <DraggableColorList
                     colors={colors}
-                    removeColor={removeColor}
+                    setColors={setColors}
                     axis="xy"
                     onSortEnd={onSortEnd}
                     distance={20}

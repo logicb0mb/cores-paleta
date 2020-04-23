@@ -1,5 +1,3 @@
-import media from './media';
-
 export default {
     PaletteFooter: {
         backgroundColor: 'white',

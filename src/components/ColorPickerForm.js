@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-import Button from '@material-ui/core/Button';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Button from '@material-ui/core/Button';
 
 import ColorPickerFormStyles from './../styles/ColorPickerFormStyles';
 
@@ -12,7 +9,6 @@ const useStyles = ColorPickerFormStyles;
 
 function ColorPickerForm(props) {
     const classes = useStyles();
-    const theme = useTheme();
     const {
         paletteIsFull,
         handleChange,

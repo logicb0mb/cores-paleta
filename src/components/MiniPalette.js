@@ -1,6 +1,6 @@
 import React from 'react';
-import { withStyles } from '@material-ui/styles';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { withStyles } from '@material-ui/styles';
 
 import styles from './../styles/MiniPaletteStyles';
 
@@ -30,8 +30,6 @@ const MiniPalette = React.memo((props) => {
     const handleClick = () => {
         goToPalette(id);
     };
-
-    console.log('Rendering:' + paletteName);
 
     return (
         <div className={classes.root} onClick={handleClick}>

@@ -1,4 +1,4 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { DRAWER_WIDTH as drawerWidth } from './../constants';
 
 export default makeStyles((theme) => ({
@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
         width: drawerWidth,
         display: 'flex',
         alignItems: 'center',
+        overflow: 'hidden',
     },
     drawerHeader: {
         display: 'flex',

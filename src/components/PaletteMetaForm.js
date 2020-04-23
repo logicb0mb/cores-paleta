@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { Picker } from 'emoji-mart';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import 'emoji-mart/css/emoji-mart.css';
-import { Picker } from 'emoji-mart';
 
 export default function PaletteMetaForm(props) {
     const [stage, setStage] = React.useState('form');
 
-    const { handleSubmit, handleChange, newName, palettes, hideForm } = props;
+    const { handleSubmit, handleChange, newName, hideForm } = props;
     useEffect(() => {
         ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
             props.palettes.every(

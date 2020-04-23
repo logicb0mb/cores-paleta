@@ -65,6 +65,7 @@ export default {
             backgroundImage:
                 'linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)',
             transition: '0.5s',
+            // eslint-disable-next-line no-dupe-keys
             backgroundImage:
                 'repeating-linear-gradient(-45deg, #7BDFF2 10px 30px,#B2F7EF 30px 50px,#EFF7F6 50px 70px,#F7D6E0 70px 90px,#F2B5D4 90px 110px)',
             color: '#130e3a',

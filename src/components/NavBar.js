@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/styles';
+import { Link } from 'react-router-dom';
+import Slider from 'rc-slider';
 import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
 import Slide from '@material-ui/core/Slide';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
 
-import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'; //this should be included before our own styles in order for edited styles (slider) to work
 import styles from './../styles/NavBarStyles';
 
